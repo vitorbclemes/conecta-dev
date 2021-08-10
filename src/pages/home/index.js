@@ -1,13 +1,18 @@
 import React from 'react'
-
+import './style.css'
+import Header from './components/Header';
 function Home() {
     return (
         <div>
-            <header>
+            <Header></Header>
+            <main className='main'>
+                <div className='navbar'>
+                    navbar
+                </div>
+                <div className='feed'>
+                    div
+                </div>
 
-            </header>
-
-            <main>
 
             </main>
         </div>
