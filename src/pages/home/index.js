@@ -14,9 +14,7 @@ const useStyles = makeStyles({
 
     main: {
         height: '100vh',
-        display: 'flex',
-        width: '1200px',
-        margin: '0 auto'
+        padding: 24
     },
     toolbar: {
         minHeight: '64px'
