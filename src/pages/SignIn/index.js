@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
@@ -8,7 +8,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Link from '@material-ui/core/Link'
-import { useNavigate } from 'react-router-dom'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import authService from '../../service/authService'
+import { useNavigate } from 'react-router'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Copyright() {
     return (
-        <Typography variant='body 2' align='center'>
+        <Typography variant='body2' align='center'>
             {`Copyright @`}
             <a color='inherit' href="https://www.youtube.com">
                 Lucas Nihmi
@@ -61,6 +63,21 @@ function Copyright() {
 function SignIn() {
     const classes = useStyles()
     const navigate = useNavigate()
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+
+
+    async function handleSignIn() {
+
+        try {
+            await authService.signIn(email, password)
+            // 200
+            navigate('/')
+        } catch (error) {
+            setErrorMessage(error.response.data.message)
+        }
+    }
     return (
 
         <Grid container className={classes.root}>
@@ -68,7 +85,7 @@ function SignIn() {
                 item
                 container
                 direction='column'
-                justify='center'
+                justifyContent='center'
                 alignItems='center'
                 md={7}
                 className={classes.image}>
@@ -94,6 +111,8 @@ function SignIn() {
                             name='email'
                             autoComplete='email'
                             autoFocus
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                         <TextField
                             variant="outlined"
@@ -105,14 +124,22 @@ function SignIn() {
                             name='password'
                             type='password'
                             autoComplete='current-password'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <Button fullWidth
                             variant='contained'
                             color='primary'
                             className={classes.button}
-                            onClick={() => navigate('/')}>
+                            onClick={handleSignIn}>
                             Entrar
                         </Button>
+                        {
+                            errorMessage &&
+                            <FormHelperText error>
+                                {errorMessage}
+                            </FormHelperText>
+                        }
 
                         <Grid container>
                             <Grid item>
