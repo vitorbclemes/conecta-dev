@@ -1,6 +1,5 @@
 import React from 'react'
 import { Container, makeStyles, Box } from '@material-ui/core'
-//import './style.css'
 
 import Header from './components/Header';
 import Navbar from './components/Navbar';

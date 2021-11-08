@@ -9,8 +9,10 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Link from '@material-ui/core/Link'
 import FormHelperText from '@material-ui/core/FormHelperText'
-import authService from '../../service/authService'
 import { useNavigate } from 'react-router'
+import { useDispatch } from 'react-redux'
+import { signIn } from '../../actions/accountAction'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'none',
-        padding: theme.spacing(2),
-        textAlign: 'center'
+        textAlign: 'center',
+        padding: theme.spacing(2)
     },
     title: {
         fontSize: 33,
@@ -62,22 +64,23 @@ function Copyright() {
 
 function SignIn() {
     const classes = useStyles()
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
+    const dispatch = useDispatch();
+
 
     async function handleSignIn() {
-
         try {
-            await authService.signIn(email, password)
-            // 200
+            await dispatch(signIn(email, password));
             navigate('/')
         } catch (error) {
             setErrorMessage(error.response.data.message)
         }
     }
+
     return (
 
         <Grid container className={classes.root}>
