@@ -4,12 +4,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import GuestRoute from './routes/GuestRoute'
-import Home from './pages/home'
 import SignIn from './pages/SignIn';
+import Home from './pages/home';
 import theme from './theme'
-import './mock';
 import store from './store';
 import Auth from './components/Auth';
+import './mock';
 
 function App() {
   return (
@@ -18,9 +18,8 @@ function App() {
         <BrowserRouter>
           <Auth>
             <Routes>
-              <Route path="/" element={<Home />} />
               <GuestRoute path="/sign-in" element={<SignIn />} />
-              <Route path="*" element={<h1>ERROR 404!</h1>} />
+              <Route path="//*" element={<Home />} />
             </Routes>
           </Auth>
         </BrowserRouter>

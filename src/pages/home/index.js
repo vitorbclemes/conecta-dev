@@ -1,9 +1,11 @@
-import React from 'react'
-import { Container, makeStyles, Box } from '@material-ui/core'
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Routes, Route } from 'react-router-dom'
+
 
 import Header from './components/Header';
-import Navbar from './components/Navbar';
-import Feed from './components/Feed';
+import NewPost from '../post/New';
+import Feed from '../feed';
 
 const useStyles = makeStyles({
     root: {
@@ -22,18 +24,17 @@ const useStyles = makeStyles({
 
 function Home() {
     const classes = useStyles();
+
     return (
         <div className={classes.root}>
-
             <Header />
-            <div className={classes.toolbar}></div>
+            <div className={classes.toolbar} />
             <main className={classes.main}>
-                <Container maxWidth="lg">
-                    <Box display='flex'>
-                        <Navbar />
-                        <Feed />
-                    </Box>
-                </Container>
+                <Routes>
+                    <Route path="/feed" element={<Feed />} />
+                    <Route path="/post/new" element={<NewPost />} />
+                    <Route path="*" element={<h1>404!</h1>} />
+                </Routes>
             </main>
         </div>
     );
